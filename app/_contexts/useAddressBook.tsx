@@ -59,17 +59,17 @@ export const WithAddressBook = ({children}: {children: React.ReactElement}): Rea
 	const chainID = useChainId();
 
 	useMountEffect(async () => {
-		/* Initially add smol address in the AB */
+		/* Initially add the team address in the AB */
 		const entriesFromDB = await getAll();
 		if (entriesFromDB.length === 0) {
 			add({
 				address: toAddress(process.env.SMOL_ADDRESS),
-				label: 'smol',
+				label: 'fruitful',
 				isFavorite: false,
 				chains: supportedNetworks.map(chain => chain.id),
 				isHidden: false,
 				numberOfInteractions: 0,
-				slugifiedLabel: 'smol'
+				slugifiedLabel: 'fruitful'
 			});
 			setEntryNonce(nonce => nonce + 1);
 		}

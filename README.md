@@ -1,129 +1,69 @@
-# Smoldapp
+# Fruitful
 
-![https://raw.githubusercontent.com/SmolDapp/SmolV2/main/public/og.png](https://raw.githubusercontent.com/SmolDapp/SmolV2/main/public/og.png)
+> Simple, smart and elegant dapps, designed to make your crypto journey a little bit easier — running on the [Reef Pelagia](https://docs.reef.io/docs/developers/pelagia/) testnet.
 
-> The safest way to transfer all your ERC20 tokens at once!
+Fruitful is a suite of small crypto dapps (a fork of [Smol](https://github.com/SmolDapp/smoldapp), rebranded and ported to Reef Pelagia):
 
-Migratooor is an easy and secure way to move all your Ethereum and ERC20 tokens from one wallet to another, with a single signature if using gnosis. This process does not involve any smart contracts!
+- **send** — transfer native REEF and ERC-20 tokens
+- **disperse** — send tokens to many addresses in one transaction
+- **revoke** — review and revoke ERC-20 allowances
+- **address-book** — local, private address book (IndexedDB)
+- **wallet** — token balances overview
+- **swap** — cross-chain swaps via LiFi (Ethereum mainnet only; LiFi does not support Pelagia)
+- **multisafe** — Safe deployment across chains (Ethereum mainnet only; Safe contracts do not exist on PolkaVM)
 
-## Why Use Migratooor?
+Live at <https://fruitful.sponsian.org>.
 
--   **Secure:** You don't need to trust any third-party smart contract! For maximum security, you can run the source code yourself and avoid any phishing risks!
--   **Easy to Use:** Our user-friendly interface allows you to quickly select all the tokens you want to migrate!
+## Networks
 
-Migratooor employs the [ethers](https://docs.ethers.org/v5/) library to transfer ERC20 tokens from one wallet to another. This generates all the transactions needed to securely move your tokens to the wallet of your choosing!
+| Network | Chain ID | Notes |
+| --- | --- | --- |
+| Reef Pelagia | 13939 | Primary target. REEF native token with **12 decimals**. PolkaVM via `pallet-revive`. |
+| Ethereum mainnet | 1 | Kept for ENS/Clusters name resolution and for the swap/multisafe apps. |
 
-## How To Use Migratooor
+Network support is defined in `app/_utils/tools.chains.ts`. The Disperse and Multicall3 contracts must be deployed on Pelagia and their addresses recorded there — see [docs/pelagia-contract-deployment.md](docs/pelagia-contract-deployment.md). The port plan lives in [docs/pelagia-port-plan.md](docs/pelagia-port-plan.md).
 
-Using Migratooor is simple. Here's a quick step-by-step guide to transferring tokens with Migratooor:
+## Develop
 
-1. **Connect your wallet** to get started
-2. **Select the tokens** you want to transfer
-3. **Input the amount** of tokens you want to transfer
-4. **Enter the address** of the wallet you want to transfer the tokens to
-5. **Confirm the transactions** and wait for them to be processed by the Ethereum network
-6. **Transfer complete!** All tokens have been sent to the recipient's wallet
-
-
-## Configuring
-
-In order to run migratooor, you need to set up the environment variables for the JSON-RPC URLs of the Ethereum networks you want to support. You also need to set up the receiver address and disperse address. These settings can be found in the `next.config.js` file:
-
-```javascript
-env: {
-    JSON_RPC_URL: {
-        1: process.env.RPC_URL_MAINNET,
-        10: process.env.RPC_URL_OPTIMISM,
-        250: process.env.RPC_URL_FANTOM,
-        42161: process.env.RPC_URL_ARBITRUM
-    },
-    RECEIVER_ADDRESS: '0x10001192576E8079f12d6695b0948C2F41320040',
-    DISPERSE_ADDRESS: '0xD152f549545093347A162Dce210e7293f1452150'
-}
-```
-
-You can set these environment variables in a `.env` file in the project root directory. Make sure to replace the values with the appropriate URLs and addresses for your project.
-
-Here's an example of a `.env` file:
-
-```
-RPC_URL_MAINNET=https://mainnet.infura.io/v3/YOUR_API_KEY
-RPC_URL_OPTIMISM=https://optimism.infura.io/v3/YOUR_API_KEY
-RPC_URL_FANTOM=https://fantom.infura.io/v3/YOUR_API_KEY
-RPC_URL_ARBITRUM=https://arbitrum.infura.io/v3/YOUR_API_KEY
-RECEIVER_ADDRESS=0x10001192576E8079f12d6695b0948C2F41320040
-DISPERSE_ADDRESS=0xD152f549545093347A162Dce210e7293f1452150
-```
-
-Replace `YOUR_API_KEY` with your own Infura API key or any other Ethereum JSON-RPC provider. Make sure to use the correct receiver and disperse addresses for your project.
-
-Once you've set up the environment variables, you're ready to run the project using the commands outlined in the previous sections.
-
-## Build and Develop
-
-### Prerequisites
-
-Before you proceed, make sure you have the following installed on your machine:
-
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/) (comes bundled with Node.js)
-
-### Installing Dependencies
-
-First, navigate to migratooor root directory in your terminal and run the following command to install all the required dependencies:
+Prerequisites: [Bun](https://bun.sh).
 
 ```bash
-npm install
+bun install
+bun run dev      # Next.js dev server
+bun run dev:ts   # TypeScript watch mode (run alongside dev)
 ```
 
-### Development Mode
-
-To run migratooor in development mode, use the following command:
+The build does **not** fail on type errors (`ignoreBuildErrors` is set) — run `tsc --noEmit` to typecheck.
 
 ```bash
-npm run dev
+bun run build            # production build
+bun run lint             # ESLint
+bun run prettier-format  # Prettier
 ```
 
-If you want to run the TypeScript compiler in watch mode alongside the development server, use:
+## Configuration
+
+Set environment variables in a `.env` file at the project root:
 
 ```bash
-npm run dev:ts
+# RPC endpoints (the Pelagia default hostname is auto-generated and may rotate —
+# always set it explicitly in production; current value at
+# https://docs.reef.io/docs/developers/networks/)
+RPC_URI_FOR_1=https://eth.llamarpc.com
+RPC_URI_FOR_13939=https://eth.reef-node-reefdevcluster-b0be3e-72-60-35-83.nip.io
+
+# WalletConnect (required for wallet connections)
+WALLETCONNECT_PROJECT_ID=your_project_id
+
+# Optional: Telegram notifications for the /api/notify and /api/report routes
+TELEGRAM_BOT=
+TELEGRAM_CHAT=
 ```
 
-### Building the Project
+## Getting testnet REEF
 
-To build migratooor, run the following command:
+Use the [Pelagia faucet](https://docs.reef.io/docs/developers/pelagia-faucet/) — paste your `0x…` address and you'll receive 2,000 REEF within ~30 seconds. Testnet REEF has no real value.
 
-```bash
-npm run build
-```
+## License
 
-This command will first compile the TypeScript files and then build the project using the `next` command.
-
-## Starting the Production Server
-
-To start the production server, first build migratooor (if you haven't already), and then run the following command:
-
-```bash
-npm run start
-```
-
-### Exporting the Project
-
-To export migratooor for deployment to IPFS, run the following command:
-
-```bash
-npm run export
-```
-
-This command will first compile the TypeScript files, then build migratooor using the `next` command, and finally export the build to the `ipfs` folder.
-
-### Linting
-
-To run the ESLint linter, use the following command:
-
-```bash
-npm run lint
-```
-
-This command will check all `.js`, `.jsx`, `.ts`, and `.tsx` files in the project for linting issues.
+MIT — see [LICENSE](LICENSE). Forked from [SmolDapp/smoldapp](https://github.com/SmolDapp/smoldapp).

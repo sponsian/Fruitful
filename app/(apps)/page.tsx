@@ -2,13 +2,8 @@
 
 import {Alignment, Fit, Layout, useRive} from '@rive-app/react-canvas';
 import Link from 'next/link';
-import {
-	IconAppAddressBook,
-	IconAppDisperse,
-	IconAppRevoke,
-	IconAppStream,
-	IconAppSwap
-} from '@lib/components/icons/IconApps';
+
+import {IconAppAddressBook, IconAppDisperse, IconAppRevoke, IconAppSwap} from '@lib/components/icons/IconApps';
 import IconMultisafe from '@lib/icons/IconMultisafe';
 import {cl} from '@lib/utils/helpers';
 
@@ -59,7 +54,7 @@ export default function Page(): ReactElement {
 					</h1>
 					<p className={'mt-6 w-full text-sm text-[#060B11] md:mb-10 md:w-11/12 md:text-base'}>
 						{
-							'Smol adds super powers to your wallet, to make your crypto journey faster, simpler and maybe even a little bit sexier.'
+							'Fruitful adds super powers to your wallet, to make your crypto journey faster, simpler and maybe even a little bit sexier.'
 						}
 					</p>
 
@@ -106,7 +101,7 @@ export default function Page(): ReactElement {
 							{'AND BRIDGE'}
 						</span>
 					}
-					description={'Enjoy crosschain swaps lightening fast with Smol Swap'}
+					description={'Enjoy crosschain swaps lightening fast with Fruitful Swap'}
 					link={'/swap'}
 					buttonTitle={'Make a swap'}
 					icon={<IconAppSwap className={'size-4'} />}
@@ -124,19 +119,6 @@ export default function Page(): ReactElement {
 					link={'/disperse'}
 					buttonTitle={'Disperse tokens'}
 					icon={<IconAppDisperse className={'size-4'} />}
-				/>
-				<Cutaway
-					title={
-						<span>
-							{'CLAIM YOUR'}
-							<br />
-							{'STREAM'}
-						</span>
-					}
-					description={"Whether it's a salary, a grant or something else, Smol will help you claim it."}
-					link={'https://v1.smold.app/stream'}
-					buttonTitle={'Claim your stream'}
-					icon={<IconAppStream className={'size-4'} />}
 				/>
 				<Cutaway
 					title={

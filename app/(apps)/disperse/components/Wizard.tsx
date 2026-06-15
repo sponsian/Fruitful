@@ -463,7 +463,12 @@ export function DisperseWizard(): ReactElement {
 			</span>
 			<Button
 				isBusy={disperseStatus.pending || approvalStatus.pending}
-				isDisabled={isAboveBalance || configuration.inputs.length === 0 || !isValid}
+				isDisabled={
+					isAboveBalance ||
+					configuration.inputs.length === 0 ||
+					!isValid ||
+					(!shouldUseSend && isZeroAddress(CHAINS[chainID].disperseAddress))
+				}
 				onClick={(): void | Promise<void> => {
 					if (shouldUseSend) {
 						return onSendSingleToken();

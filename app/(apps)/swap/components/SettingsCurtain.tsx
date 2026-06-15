@@ -3,6 +3,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import Link from 'next/link';
 import {usePlausible} from 'next-plausible';
+
 import {CurtainContent, CurtainTitle} from '@lib/components/Curtain';
 import {CloseCurtainButton} from '@lib/components/Curtains/InfoCurtain';
 import {cl} from '@lib/utils/helpers';
@@ -51,7 +52,7 @@ export function SwapCurtain(props: TSwapCurtain): ReactElement {
 									<p className={'text-sm text-neutral-900'}>{'Route preference'}</p>
 									<p className={'text-xs text-neutral-600'}>
 										{
-											'Smol’s cross chain swaps are powered by Li.Fi. Smol priotizes the safest swap route by default but you can change your settings here. To learn more about the different options please feel free to check Li.Fi’s '
+											'Fruitful’s cross chain swaps are powered by Li.Fi. Fruitful priotizes the safest swap route by default but you can change your settings here. To learn more about the different options please feel free to check Li.Fi’s '
 										}
 										<Link
 											target={'_blank'}

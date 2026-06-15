@@ -33,7 +33,7 @@ function Providers(props: {children: ReactNode; initialState: State | undefined}
 							<WithPrices supportedNetworks={supportedNetworks}>
 								<SafeProvider>
 									<PlausibleProvider
-										domain={process.env.PLAUSIBLE_DOMAIN || 'smold.app'}
+										domain={process.env.PLAUSIBLE_DOMAIN || 'fruitful.sponsian.org'}
 										enabled={true}>
 										{props.children}
 									</PlausibleProvider>

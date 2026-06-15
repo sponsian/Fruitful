@@ -27,7 +27,7 @@ function SuccessModal(props: TSuccessModal): ReactElement {
 
 	const tweetURL = useMemo(() => {
 		if (props.twitterShareContent) {
-			return `http://twitter.com/share?text=${props.twitterShareContent}&url=https://smold.app`;
+			return `http://twitter.com/share?text=${props.twitterShareContent}&url=https://fruitful.sponsian.org`;
 		}
 		return '';
 	}, [props.twitterShareContent]);

@@ -22,7 +22,7 @@ function RevokeAppInfo(): ReactElement {
 			</p>
 			<br />
 			<p>
-				{'Smol Revoke is using '}
+				{'Fruitful Revoke is using '}
 				<a
 					href={'https://github.com/RevokeCash/whois/'}
 					className={'text-neutral-900 underline'}>

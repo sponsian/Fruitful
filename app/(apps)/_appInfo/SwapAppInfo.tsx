@@ -60,7 +60,7 @@ function SwapAppInfo(): ReactElement {
 			</div>
 			<div>
 				<div className={'mb-4 h-px w-full bg-neutral-300'} />
-				<p className={'text-sm text-neutral-900'}>{'Smol Swap is powered by Li.Fi'}</p>
+				<p className={'text-sm text-neutral-900'}>{'Fruitful Swap is powered by Li.Fi'}</p>
 				<p className={'text-sm'}>
 					{'It allows you to swap tokens on the same chain, or across different chains. '}
 				</p>
@@ -68,7 +68,7 @@ function SwapAppInfo(): ReactElement {
 					{'You can even use it like a bridge by swapping to the same token on your destination chain. '}
 				</p>
 				<br />
-				<p className={'text-sm text-neutral-900'}>{'Using Smol Swap is simple.'}</p>
+				<p className={'text-sm text-neutral-900'}>{'Using Fruitful Swap is simple.'}</p>
 				<div className={'mt-2'}>
 					<p className={'text-sm font-medium'}>{'Step 1:'}</p>
 					<p className={'pl-4 text-sm'}>{'Select the network you want to swap tokens from.'}</p>
@@ -95,12 +95,12 @@ function SwapAppInfo(): ReactElement {
 				<p className={'text-sm text-neutral-900'}>{'Amount to receive!'}</p>
 				<p className={'text-sm'}>
 					{
-						"Smol swap displays the EXPECTED amount of tokens you'll receive. So you might end up with a bit more or a bit fewer tokens - this depends on your slippage settings."
+						"Fruitful swap displays the EXPECTED amount of tokens you'll receive. So you might end up with a bit more or a bit fewer tokens - this depends on your slippage settings."
 					}
 				</p>
 				<br />
 				<p className={'text-sm text-neutral-900'}>{'We have a fee'}</p>
-				<p className={'text-sm'}>{'Smol charges a 0.3% fee on swaps to fund starving devs. Ty'}</p>
+				<p className={'text-sm'}>{'Fruitful charges a 0.3% fee on swaps to fund starving devs. Ty'}</p>
 			</div>
 		</div>
 	);

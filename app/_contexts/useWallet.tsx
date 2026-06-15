@@ -9,6 +9,7 @@ import {toTToken, toTokenListToken, useTokenList} from '@lib/contexts/WithTokenL
 import {useAsyncTrigger} from '@lib/hooks/useAsyncTrigger';
 import {zeroNormalizedBN} from '@lib/utils/numbers';
 import {ethTokenAddress, isZeroAddress, toAddress} from '@lib/utils/tools.addresses';
+import {CHAINS} from '@lib/utils/tools.chains';
 import {DEFAULT_ERC20} from '@lib/utils/tools.erc20';
 import {createUniqueID} from '@lib/utils/tools.identifiers';
 
@@ -100,7 +101,7 @@ export const WalletContextApp = memo(function WalletContextApp(props: {
 		}
 
 		for (const chain of config.chains) {
-			if (chain.testnet && !props.shouldWorkOnTestnet) {
+			if (chain.testnet && !CHAINS[chain.id]?.isEnabledInProd && !props.shouldWorkOnTestnet) {
 				continue;
 			}
 			if (chain.id === 1337 && !props.shouldWorkOnTestnet) {

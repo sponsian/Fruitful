@@ -81,8 +81,9 @@ export async function getLifiRoutes(params: {
 				toAddress: params.toAddress,
 				slippage: params.slippage,
 				order: params.order,
-				//Smol configuration
-				integrator: 'Smol',
+				//Fruitful configuration — the integrator string and referrer must be registered
+				//with Li.Fi for the fee share to be collected
+				integrator: 'Fruitful',
 				fee: 0.003,
 				referrer: toAddress(process.env.SMOL_ADDRESS_V2)
 			}

@@ -10,7 +10,7 @@ const FAQ = [
 	},
 	{
 		question: 'What is MultiSafe?',
-		answer: 'MultiSafe is an application developed by Smol that allows users to create and deploy Safe smart contract wallets across multiple blockchain networks using a single address.'
+		answer: 'MultiSafe is an application developed by Fruitful that allows users to create and deploy Safe smart contract wallets across multiple blockchain networks using a single address.'
 	},
 	{
 		question: 'How do I create a Safe?',
@@ -63,7 +63,7 @@ function MultisafeAppInfo(): ReactElement {
 					}
 				</p>
 				<p className={'text-sm'}>
-					{'Smol charges a smol fee of $4.20 per deployment, for more info - check out the FAQ below.'}
+					{'Fruitful charges a small fee of $4.20 per deployment, for more info - check out the FAQ below.'}
 				</p>
 			</div>
 			<div className={'my-4 h-px w-full bg-neutral-300'} />

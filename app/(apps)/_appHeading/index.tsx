@@ -66,7 +66,7 @@ export default function AppHeading(): ReactElement {
 
 		return {
 			title: 'Nothing here!',
-			description: 'We can’t find the page you’re looking for. But here’s a smol mouse!'
+			description: 'We can’t find the page you’re looking for. But here’s a small mouse!'
 		};
 	}, [pathName]);
 

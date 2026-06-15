@@ -1,8 +1,8 @@
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
-	title: 'SmolV2',
-	description: 'SmolV2 Application',
+	title: 'Fruitful',
+	description: 'Fruitful Application',
 	manifest: '/manifest.json',
 	icons: {
 		icon: [
@@ -16,6 +16,6 @@ export const metadata: Metadata = {
 	appleWebApp: {
 		capable: true,
 		statusBarStyle: 'default',
-		title: 'SmolV2'
+		title: 'Fruitful'
 	}
 };

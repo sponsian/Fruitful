@@ -2,10 +2,10 @@
 import type {MetadataRoute} from 'next';
 
 const siteConfig = {
-	name: 'Smol Dapp',
+	name: 'Fruitful',
 	description: 'Simple, smart and elegant dapps, designed to make your crypto journey a little bit easier.',
-	url: 'https://smold.app',
-	ogImage: 'https://smold.app/og.png'
+	url: 'https://fruitful.sponsian.org',
+	ogImage: 'https://fruitful.sponsian.org/og.png'
 };
 
 export default function manifest(): MetadataRoute.Manifest {

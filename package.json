@@ -1,5 +1,5 @@
 {
-	"name": "smol",
+	"name": "fruitful",
 	"scripts": {
 		"dev": "next",
 		"dev:ts": "tsc --watch",

@@ -203,16 +203,9 @@ export function SideMenuNav(props: {menu?: TSideMenuItem[]; onClose?: () => void
 								<Link
 									onClick={() => plausible(PLAUSIBLE_EVENTS.NAVIGATE_TO_GITHUB)}
 									className={'transition-colors hover:text-neutral-900'}
-									href={'https://github.com/SmolDapp'}
+									href={'https://github.com/sponsian/Fruitful'}
 									target={'_blank'}>
 									{'GitHub'}
-								</Link>
-								<Link
-									onClick={() => plausible(PLAUSIBLE_EVENTS.NAVIGATE_TO_TWITTER)}
-									className={'transition-colors hover:text-neutral-900'}
-									href={'https://twitter.com/smoldapp'}
-									target={'_blank'}>
-									{'Twitter'}
 								</Link>
 							</div>
 							<LogOutButton />
