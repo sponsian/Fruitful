@@ -153,9 +153,9 @@ const CHAINS: TSmolChains = {
 	/**********************************************************************************************
 	 ** Reef Pelagia: no LiFi route support, no Safe contracts on PolkaVM, no DefiLlama price
 	 ** coverage (llamaChainName stays unset so price lookups skip this chain).
-	 ** disperseAddress is the zero address until the Disperse contract is deployed — follow
-	 ** docs/pelagia-contract-deployment.md, then fill in disperseAddress and contracts.multicall3
-	 ** below. Until multicall3 is set, balance reads on Pelagia will fail and be skipped.
+	 ** Multicall3 (reefPelagia.contracts.multicall3) and Disperse (disperseAddress) were deployed
+	 ** via docs/pelagia-contract-deployment.md. Pelagia state may be reset on upgrades; if these
+	 ** contracts disappear, redeploy and update the addresses here.
 	 ********************************************************************************************/
 	[reefPelagia.id]: {
 		...reefPelagia,
@@ -165,7 +165,7 @@ const CHAINS: TSmolChains = {
 		safeAPIURI: '',
 		safeUIURI: '',
 		coingeckoGasCoinID: 'reef',
-		disperseAddress: zeroAddress,
+		disperseAddress: toAddress('0x70dd7A82ff52Ed4e85af62bdaB8b9304a7d7D820'),
 		yearnRouterAddress: undefined,
 		rpcUrls: assignRPCUrls(reefPelagia)
 	}
