@@ -101,5 +101,23 @@
 	"resolutions": {
 		"elliptic": "6.6.1",
 		"tailwindcss": "3.4.17"
-	}
+	},
+	"version": "1.0.0",
+	"description": "> Simple, smart and elegant dapps, designed to make your crypto journey a little bit easier — running on the [Reef Pelagia](https://docs.reef.io/docs/developers/pelagia/) testnet.",
+	"main": ".eslintrc.js",
+	"directories": {
+		"doc": "docs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sponsian/Fruitful.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/sponsian/Fruitful/issues"
+	},
+	"homepage": "https://github.com/sponsian/Fruitful#readme"
 }

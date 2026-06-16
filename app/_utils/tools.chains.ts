@@ -89,6 +89,12 @@ const reefPelagia = {
 		default: {http: ['https://eth.reef-node-reefdevcluster-b0be3e-72-60-35-83.nip.io']},
 		public: {http: ['https://eth.reef-node-reefdevcluster-b0be3e-72-60-35-83.nip.io']}
 	},
+	contracts: {
+		multicall3: {
+			address: '0xEe72bfe4c33c4Ec6Fcdc4358026946dccF63238D',
+			blockCreated: 98266
+		}
+	},
 	blockExplorers: {
 		default: {
 			name: 'Blockscout',
