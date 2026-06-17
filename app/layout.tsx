@@ -7,11 +7,11 @@ import Providers from 'app/Providers';
 import {metadata} from './metadata';
 import '../style.css';
 
-import type {ReactElement} from 'react';
+import type {ReactElement, ReactNode} from 'react';
 
 export {metadata};
 
-export default async function RootLayout(props: {children: ReactElement}): Promise<ReactElement> {
+export default async function RootLayout(props: {children: ReactNode}): Promise<ReactElement> {
 	const initialState = cookieToInitialState(config, (await headers()).get('cookie'));
 
 	return (
