@@ -3,9 +3,9 @@
 	"scripts": {
 		"dev": "next",
 		"dev:ts": "tsc --watch",
-		"start": "tsc && next build && next start",
+		"start": "next build --webpack && next start",
 		"build": "next build --webpack",
-		"export": "tsc && next build && next export -o ipfs",
+		"export": "next build --webpack && next export -o ipfs",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"prettier-format": "prettier --config .prettierrc ./packages/**/**/*.{json,js,ts,tsx,css,md} --write"
 	},
