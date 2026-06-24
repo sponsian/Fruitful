@@ -1,12 +1,10 @@
 'use client';
 
-import {getEnsName} from '@wagmi/core';
 import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 import {usePlausible} from 'next-plausible';
 import Papa from 'papaparse';
 import {memo, useCallback, useEffect, useState} from 'react';
 import {toast} from 'react-hot-toast';
-import {mainnet} from 'viem/chains';
 import {useChainId, useConfig} from 'wagmi';
 
 import {Button} from '@lib/components/Button';
@@ -190,7 +188,7 @@ const Disperse = memo(function Disperse(): ReactElement {
 					continue;
 				}
 
-				const addressOrEns = await getAddressAndEns(theAddressOrEns, chainID, config);
+				const addressOrEns = await getAddressAndEns(theAddressOrEns);
 
 				/**********************************************************************************
 				 ** Extract the amount (everything after the address and any separators)
@@ -208,13 +206,10 @@ const Disperse = memo(function Disperse(): ReactElement {
 				 ** Create the receiver object
 				 *********************************************************************************/
 				const receiver = toAddress(theAddressOrEns);
-				const ensName = await getEnsName(config, {address: receiver, chainId: mainnet.id});
 				const addressBookEntry = await getCachedEntry({address: receiver});
 				let label = toAddress(receiver) as string;
 				if (addressBookEntry) {
 					label = addressBookEntry.label;
-				} else if (ensName) {
-					label = ensName;
 				}
 				const value = {
 					receiver: {

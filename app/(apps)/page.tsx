@@ -3,8 +3,7 @@
 import {Alignment, Fit, Layout, useRive} from '@rive-app/react-canvas';
 import Link from 'next/link';
 
-import {IconAppAddressBook, IconAppDisperse, IconAppRevoke, IconAppSwap} from '@lib/components/icons/IconApps';
-import IconMultisafe from '@lib/icons/IconMultisafe';
+import {IconAppAddressBook, IconAppDisperse, IconAppRevoke} from '@lib/components/icons/IconApps';
 import {cl} from '@lib/utils/helpers';
 
 import type {ReactElement} from 'react';
@@ -80,32 +79,6 @@ export default function Page(): ReactElement {
 				className={
 					'mb-3 grid grid-cols-1 place-content-center gap-y-6 md:grid-cols-2 md:items-center md:gap-x-6 lg:grid-cols-3'
 				}>
-				<Cutaway
-					title={
-						<span>
-							{'ONE SAFE,'}
-							<br />
-							{'ALL CHAINS'}
-						</span>
-					}
-					description={'Click and clone your Safe on any chain. Easy peasy.'}
-					link={'/multisafe'}
-					buttonTitle={'Clone my safe'}
-					icon={<IconMultisafe className={'size-4'} />}
-				/>
-				<Cutaway
-					title={
-						<span>
-							{'SWAP'}
-							<br />
-							{'AND BRIDGE'}
-						</span>
-					}
-					description={'Enjoy crosschain swaps lightening fast with Fruitful Swap'}
-					link={'/swap'}
-					buttonTitle={'Make a swap'}
-					icon={<IconAppSwap className={'size-4'} />}
-				/>
 				<Cutaway
 					title={
 						<span>

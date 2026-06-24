@@ -1,8 +1,5 @@
 import {Clusters} from '@clustersxyz/sdk';
-import {getEnsAddress, getEnsName} from '@wagmi/core';
 import {useState} from 'react';
-import {mainnet} from 'viem/chains';
-import {useConfig} from 'wagmi';
 
 import {useAddressBook} from '@lib/contexts/useAddressBook';
 import {defaultInputAddressLike, isAddress, toAddress} from '@lib/utils/tools.addresses';
@@ -13,7 +10,6 @@ export function useValidateAddressInput(): {
 	validate: (signal: AbortSignal | undefined, input: string) => Promise<TInputAddressLike>;
 	isCheckingValidity: boolean;
 } {
-	const config = useConfig();
 	const {getEntry} = useAddressBook();
 	const [isCheckingValidity, setIsCheckingValidity] = useState<boolean>(false);
 
@@ -40,19 +36,17 @@ export function useValidateAddressInput(): {
 			};
 		}
 
-		/**********************************************************
-		 ** Check if the input is an address
-		 **********************************************************/
+		/******************************************************************************************
+		 ** Check if the input is an address. ENS resolution is intentionally omitted: Fruitful does
+		 ** not connect to Ethereum (see app/_utils/tools.chains.ts), so Clusters is the name source.
+		 *****************************************************************************************/
 		if (isAddress(input)) {
 			if (signal?.aborted) {
 				throw new Error('Aborted!');
 			}
 			setIsCheckingValidity(true);
 			const clusters = new Clusters();
-			const [ensName, clusterName] = await Promise.all([
-				getEnsName(config, {address: toAddress(input), chainId: mainnet.id}),
-				clusters.getName(toAddress(input))
-			]);
+			const clusterName = await clusters.getName(toAddress(input));
 
 			if (signal?.aborted) {
 				throw new Error('Aborted!');
@@ -61,7 +55,7 @@ export function useValidateAddressInput(): {
 
 			return {
 				address: toAddress(input),
-				label: ensName || clusterName?.clusterName || toAddress(input),
+				label: clusterName?.clusterName || toAddress(input),
 				error: undefined,
 				isValid: true,
 				source: 'typed'
@@ -69,35 +63,9 @@ export function useValidateAddressInput(): {
 		}
 
 		/******************************************************************************************
-		 ** Check if the input is an ENS and handle it by checking if it resolves to an address
-		 *****************************************************************************************/
-		const lowercaseInput = input.toLowerCase();
-		if (lowercaseInput.endsWith('.eth')) {
-			if (signal?.aborted) {
-				throw new Error('Aborted!');
-			}
-			setIsCheckingValidity(true);
-			const ensAddress = await getEnsAddress(config, {name: lowercaseInput, chainId: mainnet.id});
-
-			if (signal?.aborted) {
-				throw new Error('Aborted!');
-			}
-			setIsCheckingValidity(false);
-
-			if (ensAddress) {
-				return {
-					address: toAddress(ensAddress),
-					label: lowercaseInput || toAddress(ensAddress),
-					error: undefined,
-					isValid: true,
-					source: 'typed'
-				};
-			}
-		}
-
-		/******************************************************************************************
 		 ** Check if the input is a clusters handle by checking if it ends with `/`
 		 *****************************************************************************************/
+		const lowercaseInput = input.toLowerCase();
 		if (lowercaseInput.endsWith('/') || lowercaseInput.includes('/')) {
 			if (signal?.aborted) {
 				throw new Error('Aborted!');

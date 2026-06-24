@@ -1,13 +1,10 @@
 'use client';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import {getEnsAddress} from '@wagmi/core';
 import {LayoutGroup, motion} from 'framer-motion';
 import {usePlausible} from 'next-plausible';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {isAddress} from 'viem';
-import {mainnet} from 'viem/chains';
-import {useConfig} from 'wagmi';
 
 import {AddressBookEntry} from '@lib/components/AddressBookEntry';
 import {Button} from '@lib/components/Button';
@@ -98,7 +95,6 @@ function ContactList(props: {
 	onSelect: TSelectCallback | undefined;
 	onOpenChange: (isOpen: boolean) => void;
 }): ReactElement {
-	const config = useConfig();
 	const {setCurtainStatus, dispatchConfiguration} = useAddressBook();
 
 	/**********************************************************************************************
@@ -151,13 +147,8 @@ function ContactList(props: {
 		const lowerCaseSearchValue = props.searchValue.toLowerCase();
 		const isEnsCandidate = lowerCaseSearchValue.endsWith('.eth');
 
-		let ensAddress: GetEnsAddressReturnType = null;
-		if (isEnsCandidate) {
-			ensAddress = await getEnsAddress(config, {
-				name: lowerCaseSearchValue,
-				chainId: mainnet.id
-			});
-		}
+		// ENS resolution disabled: Fruitful does not connect to Ethereum (see tools.chains.ts).
+		const ensAddress: GetEnsAddressReturnType = null;
 
 		dispatchConfiguration({
 			type: 'SET_SELECTED_ENTRY',
@@ -170,7 +161,7 @@ function ContactList(props: {
 			}
 		});
 		setCurtainStatus({isOpen: true, isEditing: true});
-	}, [dispatchConfiguration, getAddress, getLabel, props.searchValue, setCurtainStatus, config]);
+	}, [dispatchConfiguration, getAddress, getLabel, props.searchValue, setCurtainStatus]);
 
 	return (
 		<LayoutGroup>

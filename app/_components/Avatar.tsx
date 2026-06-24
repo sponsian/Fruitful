@@ -103,6 +103,8 @@ export function AvatarWrapper(props: {address: TAddress; sizeClassname?: string;
 		chainId: mainnet.id,
 		address: toAddress(props.address),
 		query: {
+			// ENS disabled: Fruitful does not connect to Ethereum (see tools.chains.ts).
+			enabled: false,
 			staleTime: Infinity
 		}
 	});
@@ -115,7 +117,7 @@ export function AvatarWrapper(props: {address: TAddress; sizeClassname?: string;
 		chainId: mainnet.id,
 		name: ensName || undefined,
 		query: {
-			enabled: Boolean(ensName),
+			enabled: false,
 			staleTime: Infinity
 		}
 	});

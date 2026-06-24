@@ -1,15 +1,6 @@
 'use client';
 
-import {
-	IconAppAddressBook,
-	IconAppDisperse,
-	IconAppRevoke,
-	IconAppSend,
-	IconAppSwap
-} from '@lib/components/icons/IconApps';
-import {IconClone} from '@lib/components/icons/IconClone';
-import IconMultisafe from '@lib/components/icons/IconMultisafe';
-import IconSquarePlus from '@lib/components/icons/IconSquarePlus';
+import {IconAppAddressBook, IconAppDisperse, IconAppRevoke, IconAppSend} from '@lib/components/icons/IconApps';
 import {IconWallet} from '@lib/components/icons/IconWallet';
 import {SideMenu} from '@lib/components/SideMenu';
 import {SideMenuMobile} from '@lib/components/SideMenu/SideMenuMobile';
@@ -36,12 +27,6 @@ const MENU = [
 		icon: <IconAppDisperse />
 	},
 	{
-		href: '/swap',
-		label: 'Swap/Bridge',
-		icon: <IconAppSwap />
-	},
-
-	{
 		href: '/address-book',
 		label: 'Address Book',
 		icon: <IconAppAddressBook />
@@ -50,30 +35,11 @@ const MENU = [
 		href: '/revoke',
 		label: 'Revoke',
 		icon: <IconAppRevoke />
-	},
-	{
-		href: '/multisafe',
-		label: 'Multisafe',
-		icon: <IconMultisafe />,
-		subMenu: [
-			{
-				href: '/multisafe/new-safe',
-				label: 'Create a Safe',
-				icon: <IconSquarePlus />
-			},
-			{
-				href: '/multisafe/clone-safe',
-				label: 'Clone a Safe',
-				icon: <IconClone />
-			}
-		]
 	}
-	// {
-	// 	href: '/stream',
-	// 	label: 'Stream',
-	// 	isDisabled: true,
-	// 	icon: <IconAppStream />
-	// }
+	/**********************************************************************************************
+	 ** Swap (LiFi) and Multisafe (Safe contracts) are not supported on Reef Pelagia, so they are
+	 ** hidden from the navigation. See docs/pelagia-port-plan.md.
+	 *********************************************************************************************/
 ];
 
 export default function RootLayout(props: {children: ReactNode}): ReactElement {

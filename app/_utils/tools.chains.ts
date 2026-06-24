@@ -2,7 +2,6 @@
 'use client';
 
 import {zeroAddress} from 'viem';
-import {mainnet} from 'viem/chains';
 
 import {toAddress} from '@lib/utils/tools.addresses';
 
@@ -134,23 +133,11 @@ const localhost = {
 const isDev = process.env.NODE_ENV === 'development' && Boolean(process.env.SHOULD_USE_FORKNET);
 const CHAINS: TSmolChains = {
 	/**********************************************************************************************
-	 ** Mainnet stays in the config because ENS and Clusters name resolution are pinned to chain 1
-	 ** (see app/_hooks/web3/useENS.ts). It remains fully usable as a network in its own right.
-	 ********************************************************************************************/
-	[mainnet.id]: {
-		...mainnet,
-		isEnabledInProd: true,
-		isLifiSwapSupported: true,
-		isMultisafeSupported: true,
-		safeAPIURI: 'https://safe-transaction-mainnet.safe.global',
-		safeUIURI: 'https://app.safe.global/home?safe=eth:',
-		coingeckoGasCoinID: 'ethereum',
-		llamaChainName: 'ethereum',
-		disperseAddress: toAddress('0xD152f549545093347A162Dce210e7293f1452150'),
-		yearnRouterAddress: toAddress('0x1112dbcf805682e828606f74ab717abf4b4fd8de'),
-		rpcUrls: assignRPCUrls(mainnet)
-	},
-	/**********************************************************************************************
+	 ** Reef Pelagia is the only supported network. Ethereum mainnet was intentionally removed so
+	 ** the app never reaches out to Ethereum RPCs (which caused CORS errors against the public
+	 ** eth.merkle.io endpoint). A consequence is that ENS name/avatar resolution is disabled
+	 ** app-wide — ENS is Ethereum-only and the ENS hooks/actions are neutered accordingly. Clusters
+	 ** name resolution still works because it uses its own API rather than an Ethereum RPC.
 	 ** Reef Pelagia: no LiFi route support, no Safe contracts on PolkaVM, no DefiLlama price
 	 ** coverage (llamaChainName stays unset so price lookups skip this chain).
 	 ** Multicall3 (reefPelagia.contracts.multicall3) and Disperse (disperseAddress) were deployed
@@ -188,7 +175,7 @@ if (isDev) {
 
 /**************************************************************************************************
  ** supportedNetworks is the user-facing list (network selector, address book, send/swap status).
- ** A testnet chain flagged isEnabledInProd (Reef Pelagia) belongs there alongside mainnet.
+ ** A testnet chain flagged isEnabledInProd (Reef Pelagia) is treated as a user-facing network.
  *************************************************************************************************/
 const supportedNetworks: Chain[] = Object.values(CHAINS).filter(e => !e.testnet || e.isEnabledInProd);
 const supportedTestNetworks: Chain[] = Object.values(CHAINS).filter(e => e.testnet && !e.isEnabledInProd);

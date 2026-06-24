@@ -1,9 +1,8 @@
 import actualAssert from 'assert';
 
-import {getBytecode, getEnsAddress, getEnsName} from '@wagmi/core';
+import {getBytecode} from '@wagmi/core';
 import axios from 'axios';
 import {getAddress, zeroAddress} from 'viem';
-import {mainnet} from 'viem/chains';
 
 import {CHAINS, supportedNetworks} from '@lib/utils/tools.chains';
 
@@ -423,37 +422,27 @@ export async function getIsSmartContract(props: {
 }
 
 /************************************************************************************************
- ** getAddressAndEns resolves an address or ENS name to its canonical form
+ ** getAddressAndEns validates an address and returns it in canonical form.
  **
- ** @param address - Address or ENS name to resolve
- ** @param chainID - Chain ID for resolution
- ** @param config - Wagmi config object
- ** @returns Promise<TAddressAndEns | undefined> - Resolved address and ENS pair
+ ** @param address - Address to validate
+ ** @returns Promise<TAddressAndEns | undefined> - The address with an empty label, or undefined
  **
- ** Features:
- ** - Handles both forward and reverse ENS resolution
- ** - Validates addresses
- ** - Returns undefined for invalid inputs
+ ** Note: ENS resolution is disabled because Fruitful does not connect to Ethereum (see
+ ** tools.chains.ts). The label is always empty and `.eth` names cannot be resolved.
  **
  ** @example
  ** ```typescript
- ** const resolved = await getAddressAndEns("vitalik.eth", 1, wagmiConfig);
- ** // Returns: { address: "0x...", label: "vitalik.eth" }
+ ** const resolved = await getAddressAndEns("0x...");
+ ** // Returns: { address: "0x...", label: "" }
  ** ```
  ************************************************************************************************/
-export async function getAddressAndEns(
-	address: string,
-	chainID: number,
-	config: Config
-): Promise<TAddressAndEns | undefined> {
+export async function getAddressAndEns(address: string): Promise<TAddressAndEns | undefined> {
+	/**********************************************************************************************
+	 ** ENS resolution is disabled: Fruitful does not connect to Ethereum (see tools.chains.ts).
+	 ** Plain addresses are returned without an ENS label; `.eth` names cannot be resolved.
+	 *********************************************************************************************/
 	if (isAddress(address)) {
-		const ensName = await getEnsName(config, {address, chainId: mainnet.id});
-		return {address: toAddress(address), label: ensName ?? ''};
+		return {address: toAddress(address), label: ''};
 	}
-	if (address.endsWith('.eth')) {
-		const receiverAddress = toAddress(await getEnsAddress(config, {name: address, chainId: chainID}));
-
-		return isAddress(receiverAddress) ? {address: toAddress(receiverAddress), label: address} : undefined;
-	}
-	return;
+	return undefined;
 }

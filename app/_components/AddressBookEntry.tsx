@@ -132,12 +132,17 @@ export function AddressBookEntry(props: {
 }): ReactElement {
 	const chainID = useChainId();
 	const {updateEntry} = useAddressBook();
-	const {data: ensName} = useEnsName({chainId: mainnet.id, address: toAddress(props.entry.address)});
+	// ENS disabled: Fruitful does not connect to Ethereum (see tools.chains.ts). Clusters is the name source.
+	const {data: ensName} = useEnsName({
+		chainId: mainnet.id,
+		address: toAddress(props.entry.address),
+		query: {enabled: false}
+	});
 	const {data: avatar, isLoading: isLoadingAvatar} = useEnsAvatar({
 		chainId: mainnet.id,
 		name: ensName || props.entry.ens,
 		query: {
-			enabled: Boolean(ensName || props.entry.ens)
+			enabled: false
 		}
 	});
 	const clusters = useClusters({address: toAddress(props.entry.address)});
@@ -200,12 +205,13 @@ export function AddressBookEntry(props: {
  *************************************************************************************************/
 export function AddressEntry(props: {address: TAddress}): ReactElement {
 	const {getCachedEntry} = useAddressBook();
-	const {data: ensName} = useEnsName({chainId: mainnet.id, address: toAddress(props.address)});
+	// ENS disabled: Fruitful does not connect to Ethereum (see tools.chains.ts). Clusters is the name source.
+	const {data: ensName} = useEnsName({chainId: mainnet.id, address: toAddress(props.address), query: {enabled: false}});
 	const {data: avatar, isLoading: isLoadingAvatar} = useEnsAvatar({
 		chainId: mainnet.id,
 		name: ensName || '',
 		query: {
-			enabled: Boolean(ensName)
+			enabled: false
 		}
 	});
 	const clusters = useClusters({address: toAddress(props.address)});

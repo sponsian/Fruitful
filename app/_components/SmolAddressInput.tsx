@@ -1,10 +1,8 @@
 'use client';
 
 import {useAsyncAbortable} from '@react-hookz/web';
-import {getEnsAddress} from '@wagmi/core';
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {useOnClickOutside} from 'usehooks-ts';
-import {mainnet} from 'viem/chains';
 import {useChainId, useConfig} from 'wagmi';
 
 import {IconAppAddressBook} from '@lib/components/icons/IconApps';
@@ -191,16 +189,9 @@ export function SmolAddressInput({
 	const onAddContact = async (): Promise<void> => {
 		const hasALabel = isZeroAddress(configuration.receiver.label);
 		const isRecieverAnAddress = isAddress(configuration?.receiver.address);
-		const lowerCaseRecieverValue = configuration?.receiver.address?.toLowerCase();
-		const isEnsCandidate = lowerCaseRecieverValue?.endsWith('.eth');
 
-		let ensAddress: GetEnsAddressReturnType = null;
-		if (isEnsCandidate) {
-			ensAddress = await getEnsAddress(config, {
-				name: lowerCaseRecieverValue ?? '',
-				chainId: mainnet.id
-			});
-		}
+		// ENS resolution disabled: Fruitful does not connect to Ethereum (see tools.chains.ts).
+		const ensAddress: GetEnsAddressReturnType = null;
 
 		dispatchConfiguration({
 			type: 'SET_SELECTED_ENTRY',

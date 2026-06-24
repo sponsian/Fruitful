@@ -15,7 +15,8 @@ import type {TAddress} from '@lib/utils/tools.addresses';
 import type {ReactElement} from 'react';
 
 export function ReadonlySmolAddressInput(props: {value: TAddress}): ReactElement {
-	const {data: ens} = useEnsName({address: props.value, chainId: mainnet.id});
+	// ENS disabled: Fruitful does not connect to Ethereum (see tools.chains.ts). Clusters is the name source.
+	const {data: ens} = useEnsName({address: props.value, chainId: mainnet.id, query: {enabled: false}});
 	const clusters = useClusters({address: props.value});
 
 	return (

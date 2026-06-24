@@ -1,7 +1,6 @@
 import {usePlausible} from 'next-plausible';
 import Papa from 'papaparse';
 import {toast} from 'react-hot-toast';
-import {useChainId, useConfig} from 'wagmi';
 
 import {Button} from '@lib/components/Button';
 import {IconImport} from '@lib/components/icons/IconImport';
@@ -19,8 +18,6 @@ import type {ChangeEvent, ReactElement} from 'react';
 export function ImportConfigurationButton(props: {setIsLoadingReceivers: (value: boolean) => void}): ReactElement {
 	const {setIsLoadingReceivers} = props;
 	const plausible = usePlausible();
-	const chainID = useChainId();
-	const config = useConfig();
 	const {configuration, dispatchConfiguration} = useDisperse();
 	const {validate: validateAmount} = useValidateAmountInput();
 	const {getCachedEntry} = useAddressBook();
@@ -80,11 +77,7 @@ export function ImportConfigurationButton(props: {setIsLoadingReceivers: (value:
 						if (cachedEntry?.label) {
 							label = cachedEntry.label;
 						} else {
-							const fromENS = (await getAddressAndEns(
-								row[receiverAddress],
-								chainID,
-								config
-							)) as TAddressAndEns;
+							const fromENS = (await getAddressAndEns(row[receiverAddress])) as TAddressAndEns;
 							if (fromENS?.label) {
 								label = fromENS.label;
 							}
