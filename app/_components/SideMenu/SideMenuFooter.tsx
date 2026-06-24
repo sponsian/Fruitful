@@ -8,8 +8,8 @@ export function SideMenuFooter(): ReactElement {
 			<Image
 				src={'/fruitful.svg'}
 				alt={'fruitful'}
-				width={'56'}
-				height={'24'}
+				width={'168'}
+				height={'72'}
 			/>
 			<Image
 				src={'/pineapple.svg'}
